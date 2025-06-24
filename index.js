@@ -1,4 +1,6 @@
+require('dotenv').config();
 const { Client } = require('discord.js-selfbot-v13');
+const http = require('http');
 
 const client = new Client({
     checkUpdate: false
@@ -45,7 +47,16 @@ client.on('ready', () => {
     scheduleHourlyRandomBatch(); // Start the hourly random scheduler
 });
 
+// Simple HTTP server to keep Render happy
+const PORT = process.env.PORT || 3000;
 
-require('dotenv').config();
+const server = http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Bot is running!');
+});
+
+server.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+});
 
 client.login(process.env.TOKEN);
