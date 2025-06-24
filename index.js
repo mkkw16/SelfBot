@@ -48,6 +48,7 @@ client.on('ready', () => {
 });
 
 // Simple HTTP server to keep Render happy
+<<<<<<< HEAD
 const http = require('http');
 const PORT = process.env.PORT || 3000;
 
@@ -69,4 +70,17 @@ server.listen(PORT, () => {
 
 server.on('error', err => console.error('Server Error:', err));
 
+=======
+const PORT = process.env.PORT || 3000;
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Bot is running!');
+});
+
+server.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+});
+
+>>>>>>> 456ccf59aae7154a48cdaf68f6efae2fe2a18f4e
 client.login(process.env.TOKEN);
