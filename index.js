@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { Client } = require('discord.js-selfbot-v13');
 const http = require('http');
+console.log("▶️ sendRandomCommandBatch gestart");
 
 const client = new Client({
     checkUpdate: false
@@ -11,7 +12,7 @@ const commands = ["$wa", "$ma", "$ha", "$w", "$m", "$h", "$wg", "$mg", "$hg"];
 
 // Get a random delay between 0 and 60 minutes
 function getRandomDelayInHour() {
-    const min = 0;                // 0 minutes
+    const min = 1 * 60 * 1000;                // 1 minutes
     const max = 60 * 60 * 1000;   // 60 minutes
     return Math.floor(Math.random() * max);
 }
@@ -36,7 +37,7 @@ function scheduleHourlyRandomBatch() {
         const delay = getRandomDelayInHour();
         console.log(`Next batch will start in ${Math.floor(delay / 60000)} minutes`);
 
-        setTimeout(() => {
+        setTimeout(async() => {
             sendRandomCommandBatch();
         }, delay);
     }, 60 * 60 * 1000); // Every hour
