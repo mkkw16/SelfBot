@@ -12,8 +12,8 @@ const commands = ["$wa", "$ma", "$ha", "$w", "$m", "$h", "$wg", "$mg", "$hg"];
 
 // Get a random delay between 0 and 60 minutes
 function getRandomDelayInHour() {
-    const min = 5 * 1000;                // 1 minutes
-    const max = 10 * 1000;   // 60 minutes
+    const min = 1 * 60 * 1000;                // 1 minutes
+    const max = 55 * 60 * 1000;   // 60 minutes
     return Math.floor(Math.random() * max);
 }
 
@@ -40,7 +40,7 @@ function scheduleHourlyRandomBatch() {
         setTimeout(async() => {
             sendRandomCommandBatch();
         }, delay);
-    }, 30 * 1000); // Every hour
+    }, 60 * 60 * 1000); // Every hour
 }
 
 client.on('ready', () => {
