@@ -7,13 +7,13 @@ const client = new Client({
     checkUpdate: false
 });
 
-const CHANNEL_ID = '1370497316414427146'; // Replace with your channel ID
+const CHANNEL_ID = '1387200230318932149'; // Replace with your channel ID
 const commands = ["$wa", "$ma", "$ha", "$w", "$m", "$h", "$wg", "$mg", "$hg"];
 
 // Get a random delay between 0 and 60 minutes
 function getRandomDelayInHour() {
-    const min = 1 * 60 * 1000;                // 1 minutes
-    const max = 60 * 60 * 1000;   // 60 minutes
+    const min = 5 * 1000;                // 1 minutes
+    const max = 10 * 1000;   // 60 minutes
     return Math.floor(Math.random() * max);
 }
 
@@ -40,7 +40,7 @@ function scheduleHourlyRandomBatch() {
         setTimeout(async() => {
             sendRandomCommandBatch();
         }, delay);
-    }, 60 * 60 * 1000); // Every hour
+    }, 30 * 1000); // Every hour
 }
 
 client.on('ready', () => {
