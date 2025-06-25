@@ -30,7 +30,7 @@ async function sendRandomCommandBatch() {
 client.on('ready', () => {
     console.log(`✅ Logged in as ${client.user.username}`);
     
-    cron.schedule('30 10-23 * * *', () => {
+    cron.schedule('30 00-23 * * *', () => {
         console.log(`⏰ Tijd voor nieuwe batch: ${new Date().toLocaleTimeString()}`);
         sendRandomCommandBatch();
     });       
