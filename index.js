@@ -12,12 +12,6 @@ const client = new Client({
 const CHANNEL_ID = '1370497316414427146'; // Replace with your channel ID
 const commands = ["$m"];
 
-// Get a random delay between 0 and 60 minutes
-function scheduleFixedBatch() {
-    setInterval(() => {
-        sendRandomCommandBatch();
-    }, 90 * 60 * 1000); // 90 minuten in milliseconden
-}
 // Send a batch of 10 random commands
 async function sendRandomCommandBatch() {
     const channel = await client.channels.fetch(CHANNEL_ID);
