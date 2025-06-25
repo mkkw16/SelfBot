@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { Client } = require('discord.js-selfbot-v13');
 const http = require('http');
+const cron = require('node-cron');
+
 console.log("▶️ sendRandomCommandBatch gestart");
 
 const client = new Client({
@@ -24,7 +26,7 @@ async function sendRandomCommandBatch() {
             const randomCommand = commands[Math.floor(Math.random() * commands.length)];
             await channel.send(randomCommand);
             console.log(`Sent: ${randomCommand}`);
-            await new Promise(resolve => setTimeout(resolve, 3000)); // 3s delay between messages
+            await new Promise(resolve => setTimeout(resolve, 2000)); // 3s delay between messages
         }
         console.log(`Batch sent at ${new Date().toLocaleTimeString()}`);
     }
@@ -33,7 +35,9 @@ async function sendRandomCommandBatch() {
 // Schedule the hourly batch with a random offset
 client.on('ready', () => {
     console.log(`✅ Logged in as ${client.user.username}`);
-    scheduleHourlyRandomBatch(); // Start the hourly random scheduler
+    cron.schedule('30 10-23 * * *', () => {
+    console.log(`⏰ Tijd voor nieuwe batch: ${new Date().toLocaleTimeString()}`);
+    sendRandomCommandBatch();
 });
 
 // Simple HTTP server to keep Render happy
