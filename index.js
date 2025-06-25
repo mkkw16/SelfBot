@@ -11,11 +11,8 @@ const CHANNEL_ID = '1370497316414427146'; // Replace with your channel ID
 const commands = ["$m"];
 
 // Get a random delay between 0 and 60 minutes
-function getRandomDelayInHour() {
-    const min = 1 * 60 * 1000;                // 1 minutes
-    const max = 55 * 60 * 1000;   // 60 minutes
-    return Math.floor(Math.random() * max);
-}
+setInterval(() => {
+    const delay = 30 * 60 * 1000; 
 
 // Send a batch of 10 random commands
 async function sendRandomCommandBatch() {
