@@ -35,9 +35,11 @@ async function sendRandomCommandBatch() {
 // Schedule the hourly batch with a random offset
 client.on('ready', () => {
     console.log(`✅ Logged in as ${client.user.username}`);
+    
     cron.schedule('30 10-23 * * *', () => {
-    console.log(`⏰ Tijd voor nieuwe batch: ${new Date().toLocaleTimeString()}`);
-    sendRandomCommandBatch();
+        console.log(`⏰ Tijd voor nieuwe batch: ${new Date().toLocaleTimeString()}`);
+        sendRandomCommandBatch();
+    });       
 });
 
 // Simple HTTP server to keep Render happy
