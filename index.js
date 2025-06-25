@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { Client } = require('discord.js-selfbot-v13');
 const http = require('http');
+const cron = require('node-cron');
+
 console.log("▶️ sendRandomCommandBatch gestart");
 
 const client = new Client({
@@ -8,15 +10,14 @@ const client = new Client({
 });
 
 const CHANNEL_ID = '1370497316414427146'; // Replace with your channel ID
-const commands = ["$wa", "$ma", "$ha", "$w", "$m", "$h", "$wg", "$mg", "$hg"];
+const commands = ["$m"];
 
 // Get a random delay between 0 and 60 minutes
-function getRandomDelayInHour() {
-    const min = 1 * 60 * 1000;                // 1 minutes
-    const max = 55 * 60 * 1000;   // 60 minutes
-    return Math.floor(Math.random() * max);
+function scheduleFixedBatch() {
+    setInterval(() => {
+        sendRandomCommandBatch();
+    }, 90 * 60 * 1000); // 90 minuten in milliseconden
 }
-
 // Send a batch of 10 random commands
 async function sendRandomCommandBatch() {
     const channel = await client.channels.fetch(CHANNEL_ID);
@@ -25,27 +26,18 @@ async function sendRandomCommandBatch() {
             const randomCommand = commands[Math.floor(Math.random() * commands.length)];
             await channel.send(randomCommand);
             console.log(`Sent: ${randomCommand}`);
-            await new Promise(resolve => setTimeout(resolve, 3000)); // 3s delay between messages
+            await new Promise(resolve => setTimeout(resolve, 2000)); // 3s delay between messages
         }
         console.log(`Batch sent at ${new Date().toLocaleTimeString()}`);
     }
 }
 
 // Schedule the hourly batch with a random offset
-function scheduleHourlyRandomBatch() {
-    setInterval(async () => {
-        const delay = getRandomDelayInHour();
-        console.log(`Next batch will start in ${Math.floor(delay / 60000)} minutes`);
-
-        setTimeout(async() => {
-            sendRandomCommandBatch();
-        }, delay);
-    }, 60 * 60 * 1000); // Every hour
-}
-
 client.on('ready', () => {
     console.log(`✅ Logged in as ${client.user.username}`);
-    scheduleHourlyRandomBatch(); // Start the hourly random scheduler
+    cron.schedule('30 10-23 * * *', () => {
+    console.log(`⏰ Tijd voor nieuwe batch: ${new Date().toLocaleTimeString()}`);
+    sendRandomCommandBatch();
 });
 
 // Simple HTTP server to keep Render happy
