@@ -10,7 +10,7 @@ const client = new Client({
 });
 
 const CHANNEL_ID = '1370497316414427146'; // Replace with your channel ID
-const commands = ["$m"];
+const commands = ["$m", "$m"];
 
 // Send a batch of 10 random commands
 async function sendRandomCommandBatch() {
