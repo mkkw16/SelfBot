@@ -8,7 +8,7 @@ const client = new Client({
 });
 
 const CHANNEL_ID = '1370497316414427146'; // Replace with your channel ID
-const commands = ["$wa", "$ma", "$ha", "$w", "$m", "$h", "$wg", "$mg", "$hg"];
+const commands = ["$m"];
 
 // Get a random delay between 0 and 60 minutes
 function getRandomDelayInHour() {
